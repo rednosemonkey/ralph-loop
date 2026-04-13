@@ -264,6 +264,50 @@ program
   });
 
 // ---------------------------------------------------------------------------
+// ralph install-skill
+// ---------------------------------------------------------------------------
+
+program
+  .command('install-skill')
+  .description('Install the Ralph skill for Claude Code')
+  .option('--project', 'Install to current project (.claude/skills/) instead of user-level')
+  .action((opts: { project?: boolean }) => {
+    const skillSource = path.join(
+      path.dirname(new URL(import.meta.url).pathname),
+      '..', 'skill', 'ralph.md',
+    );
+
+    // Check if the bundled skill file exists (handles both dist/ and src/ layouts)
+    let source = skillSource;
+    if (!fs.existsSync(source)) {
+      // Try one more level up (when running from dist/)
+      source = path.join(path.dirname(new URL(import.meta.url).pathname), '..', '..', 'skill', 'ralph.md');
+    }
+    if (!fs.existsSync(source)) {
+      console.error('Could not find bundled skill file. Try reinstalling: npm install -g ralph-loop');
+      process.exit(1);
+    }
+
+    const home = process.env.HOME || process.env.USERPROFILE || '';
+    const targetDir = opts.project
+      ? path.join(process.cwd(), '.claude', 'skills')
+      : path.join(home, '.claude', 'skills');
+
+    const targetFile = path.join(targetDir, 'ralph.md');
+
+    fs.mkdirSync(targetDir, { recursive: true });
+    fs.copyFileSync(source, targetFile);
+
+    if (opts.project) {
+      console.log(`Skill installed to ${targetFile}`);
+      console.log('Ralph will trigger in this project when you ask Claude Code to build something.');
+    } else {
+      console.log(`Skill installed to ${targetFile}`);
+      console.log('Ralph will trigger in ALL Claude Code projects when you ask to build something.');
+    }
+  });
+
+// ---------------------------------------------------------------------------
 // Parse and run
 // ---------------------------------------------------------------------------
 

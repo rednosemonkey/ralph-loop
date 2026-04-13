@@ -24,26 +24,34 @@ The work is split between two systems:
 
 ## Install
 
+Two things are needed: the **CLI** (the coding loop engine) and the **skill** (tells Claude Code how to use it).
+
 ```bash
+# 1. Install the CLI globally
 npm install -g ralph-loop
+
+# 2. Install the Claude Code skill (available in all projects)
+ralph install-skill
 ```
 
-Requires Node.js 22+ and either:
-- `ANTHROPIC_API_KEY` environment variable, or
-- Claude Code configured (`claude login`)
+That's it. The skill is now available in every Claude Code session.
+
+If you'd prefer to install the skill for a single project only:
+```bash
+ralph install-skill --project
+```
+
+### Requirements
+
+- Node.js 22+
+- Authentication: `ANTHROPIC_API_KEY` env var, or Claude Code configured (`claude login`)
+- Git (Ralph uses commits to track progress)
 
 ## Usage with Claude Code (recommended)
 
 The primary way to use Ralph is through the Claude Code skill. This gives you interactive planning with the full coding loop.
 
-### 1. Add the skill to your project
-
-```bash
-mkdir -p .claude/skills
-cp $(npm root -g)/ralph-loop/skill/ralph.md .claude/skills/ralph.md
-```
-
-### 2. Ask Claude Code to build something
+### Ask Claude Code to build something
 
 Just describe what you want in natural language:
 
@@ -60,7 +68,7 @@ Claude Code will:
 4. Show you the plan for confirmation
 5. Run `ralph run` to execute the coding loop autonomously
 
-### 3. Monitor and review
+### Monitor and review
 
 The loop prints progress to stdout as it works through stories. When it's done, Claude Code shows you the results and helps with any failures.
 
