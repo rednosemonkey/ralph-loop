@@ -36,6 +36,8 @@ ralph install-skill
 
 That's it. The skill is now available in every Claude Code session.
 
+This creates `~/.claude/skills/ralph/SKILL.md` (the format Claude Code expects).
+
 If you'd prefer to install the skill for a single project only:
 ```bash
 ralph install-skill --project

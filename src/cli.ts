@@ -289,14 +289,20 @@ program
     }
 
     const home = process.env.HOME || process.env.USERPROFILE || '';
-    const targetDir = opts.project
+    const baseDir = opts.project
       ? path.join(process.cwd(), '.claude', 'skills')
       : path.join(home, '.claude', 'skills');
 
-    const targetFile = path.join(targetDir, 'ralph.md');
+    // Claude Code expects skills as <skill-name>/SKILL.md, not loose files
+    const targetDir = path.join(baseDir, 'ralph');
+    const targetFile = path.join(targetDir, 'SKILL.md');
 
     fs.mkdirSync(targetDir, { recursive: true });
     fs.copyFileSync(source, targetFile);
+
+    // Clean up old loose file from previous install format
+    const oldFile = path.join(baseDir, 'ralph.md');
+    try { fs.unlinkSync(oldFile); } catch { /* doesn't exist */ }
 
     if (opts.project) {
       console.log(`Skill installed to ${targetFile}`);
