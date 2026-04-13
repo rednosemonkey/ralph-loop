@@ -28,7 +28,7 @@ Two things are needed: the **CLI** (the coding loop engine) and the **skill** (t
 
 ```bash
 # 1. Install the CLI globally
-npm install -g ralph-loop
+npm install -g ralph-coding-loop
 
 # 2. Install the Claude Code skill (available in all projects)
 ralph install-skill

@@ -33,7 +33,7 @@ Before anything else, verify these two things:
 which ralph
 ```
 
-If not found, tell the user: "Ralph isn't installed. Run `npm install -g ralph-loop` and try again." Then stop.
+If not found, tell the user: "Ralph isn't installed. Run `npm install -g ralph-coding-loop` and try again." Then stop.
 
 **2. Git repository**
 

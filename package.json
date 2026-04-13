@@ -1,5 +1,5 @@
 {
-  "name": "ralph-loop",
+  "name": "ralph-coding-loop",
   "version": "0.1.0",
   "description": "Autonomous coding loop powered by Claude. Iterates through user stories, codes, verifies, and retries until done.",
   "type": "module",
