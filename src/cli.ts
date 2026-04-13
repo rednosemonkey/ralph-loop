@@ -93,9 +93,10 @@ program
       '',
       `## Instructions`,
       `1. Read the project directory to understand existing code, structure, and tech stack.`,
-      `2. Design a phased implementation plan with concrete, verifiable stories.`,
-      `3. Write prd.json to the project root using the Write tool.`,
-      `4. After writing, output a brief summary of the plan.`,
+      `2. Ask the user clarifying questions about scope and requirements using AskUserQuestion.`,
+      `3. Design a phased implementation plan with concrete, verifiable stories.`,
+      `4. Write prd.json to the project root using the Write tool.`,
+      `5. Output a brief summary of the plan.`,
     ].join('\n');
 
     try {
@@ -107,8 +108,8 @@ program
           tools: { type: 'preset' as const, preset: 'claude_code' as const },
           cwd: projectDir,
           permissionMode: 'acceptEdits' as const,
-          allowedTools: ['Bash', 'Read', 'Write', 'Glob', 'Grep'],
-          disallowedTools: ['AskUserQuestion', 'CronCreate', 'CronDelete', 'CronList'],
+          allowedTools: ['Bash', 'Read', 'Write', 'Glob', 'Grep', 'AskUserQuestion'],
+          disallowedTools: ['CronCreate', 'CronDelete', 'CronList'],
         },
       });
 

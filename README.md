@@ -60,7 +60,7 @@ Creates a template `prd.json` in the current directory that you can edit.
 
 ### `ralph plan <description>`
 
-Uses Claude to analyze your project and generate a `prd.json` based on your description.
+Uses Claude to analyze your project and generate a `prd.json`. The planner reads your codebase, asks you clarifying questions about scope and requirements, then generates a phased plan with concrete verification steps.
 
 ```bash
 ralph plan "Add authentication with JWT tokens and a /login endpoint"
@@ -144,6 +144,17 @@ responses.json
 report.md
 .ralph.lock
 ```
+
+## Claude Code Skill
+
+Ralph includes a skill file you can drop into any project to trigger it from Claude Code. Copy `skill/ralph.md` to your project's `.claude/skills/` directory:
+
+```bash
+mkdir -p .claude/skills
+cp $(npm root -g)/ralph-loop/skill/ralph.md .claude/skills/ralph.md
+```
+
+Then in Claude Code, just say "build me a dashboard" or "add authentication" and it will plan and run the Ralph loop automatically.
 
 ## Architecture
 
